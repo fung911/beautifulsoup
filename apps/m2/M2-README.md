@@ -1,5 +1,27 @@
 # Milestone-2
 
+---
+## Project Structure
+
+```
+
+
+├── apps   # Sample text file
+    └── m2/
+        └──README.md              # This file
+        └── task2.py         
+        └── task3.py            
+        └── task4.py         
+        └── task6.py       
+    └── bs4/
+        └──tests              
+            └── test_replacer.py       # Test cases  
+        └── SoupReplace.py             # My customize class
+     
+```
+---
+
+
 ## Part1
 
 ---
