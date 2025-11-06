@@ -209,16 +209,16 @@ class BeautifulSoup(Tag):
     contains_replacement_characters: bool
 
     def __init__(
-        self,
-        markup: _IncomingMarkup = "",
-        features: Optional[Union[str, Sequence[str]]] = None,
-        builder: Optional[Union[TreeBuilder, Type[TreeBuilder]]] = None,
-        parse_only: Optional[SoupStrainer] = None,
-        from_encoding: Optional[_Encoding] = None,
-        exclude_encodings: Optional[_Encodings] = None,
-        element_classes: Optional[Dict[Type[PageElement], Type[PageElement]]] = None,
-        replacer:Optional[SoupReplacer] = None,
-        **kwargs: Any,
+            self,
+            markup: _IncomingMarkup = "",
+            features: Optional[Union[str, Sequence[str]]] = None,
+            builder: Optional[Union[TreeBuilder, Type[TreeBuilder]]] = None,
+            parse_only: Optional[SoupStrainer] = None,
+            from_encoding: Optional[_Encoding] = None,
+            exclude_encodings: Optional[_Encodings] = None,
+            element_classes: Optional[Dict[Type[PageElement], Type[PageElement]]] = None,
+            replacer: Optional[SoupReplacer] = None,
+            **kwargs: Any,
     ):
         """Constructor.
 
@@ -377,15 +377,15 @@ class BeautifulSoup(Tag):
         if builder is None:
             builder = builder_class(**kwargs)
             if (
-                not original_builder
-                and not (
+                    not original_builder
+                    and not (
                     original_features == builder.NAME
                     or (
-                        isinstance(original_features, str)
-                        and original_features in builder.ALTERNATE_NAMES
+                            isinstance(original_features, str)
+                            and original_features in builder.ALTERNATE_NAMES
                     )
-                )
-                and markup
+            )
+                    and markup
             ):
                 # The user did not tell us which TreeBuilder to use,
                 # and we had to guess. Issue a warning.
@@ -447,8 +447,8 @@ class BeautifulSoup(Tag):
                 f"Incoming markup is of an invalid type: {markup!r}. Markup must be a string, a bytestring, or an open filehandle."
             )
         elif len(markup) <= 256 and (
-            (isinstance(markup, bytes) and b"<" not in markup and b"\n" not in markup)
-            or (isinstance(markup, str) and "<" not in markup and "\n" not in markup)
+                (isinstance(markup, bytes) and b"<" not in markup and b"\n" not in markup)
+                or (isinstance(markup, str) and "<" not in markup and "\n" not in markup)
         ):
             # Issue warnings for a couple beginner problems
             # involving passing non-markup to Beautiful Soup.
@@ -464,10 +464,10 @@ class BeautifulSoup(Tag):
         rejections = []
         success = False
         for (
-            self.markup,
-            self.original_encoding,
-            self.declared_html_encoding,
-            self.contains_replacement_characters,
+                self.markup,
+                self.original_encoding,
+                self.declared_html_encoding,
+                self.contains_replacement_characters,
         ) in self.builder.prepare_markup(
             markup, from_encoding, exclude_encodings=exclude_encodings
         ):
@@ -564,13 +564,13 @@ class BeautifulSoup(Tag):
         problem: bool = False
         if isinstance(markup, bytes):
             problem = (
-                any(markup.startswith(prefix) for prefix in (b"http:", b"https:"))
-                and b" " not in markup
+                    any(markup.startswith(prefix) for prefix in (b"http:", b"https:"))
+                    and b" " not in markup
             )
         elif isinstance(markup, str):
             problem = (
-                any(markup.startswith(prefix) for prefix in ("http:", "https:"))
-                and " " not in markup
+                    any(markup.startswith(prefix) for prefix in ("http:", "https:"))
+                    and " " not in markup
             )
         else:
             return False
@@ -663,7 +663,7 @@ class BeautifulSoup(Tag):
         # Close out any unfinished strings and close all the open tags.
         self.endData()
         while (
-            self.currentTag is not None and self.currentTag.name != self.ROOT_TAG_NAME
+                self.currentTag is not None and self.currentTag.name != self.ROOT_TAG_NAME
         ):
             self.popTag()
 
@@ -684,15 +684,15 @@ class BeautifulSoup(Tag):
         self.pushTag(self)
 
     def new_tag(
-        self,
-        name: str,
-        namespace: Optional[str] = None,
-        nsprefix: Optional[str] = None,
-        attrs: Optional[_RawAttributeValues] = None,
-        sourceline: Optional[int] = None,
-        sourcepos: Optional[int] = None,
-        string: Optional[str] = None,
-        **kwattrs: _RawAttributeValue,
+            self,
+            name: str,
+            namespace: Optional[str] = None,
+            nsprefix: Optional[str] = None,
+            attrs: Optional[_RawAttributeValues] = None,
+            sourceline: Optional[int] = None,
+            sourcepos: Optional[int] = None,
+            string: Optional[str] = None,
+            **kwattrs: _RawAttributeValue,
     ) -> Tag:
         """Create a new Tag associated with this BeautifulSoup object.
 
@@ -734,7 +734,7 @@ class BeautifulSoup(Tag):
         return tag
 
     def string_container(
-        self, base_class: Optional[Type[NavigableString]] = None
+            self, base_class: Optional[Type[NavigableString]] = None
     ) -> Type[NavigableString]:
         """Find the class that should be instantiated to hold a given kind of
         string.
@@ -759,7 +759,7 @@ class BeautifulSoup(Tag):
         return container
 
     def new_string(
-        self, s: str, subclass: Optional[Type[NavigableString]] = None
+            self, s: str, subclass: Optional[Type[NavigableString]] = None
     ) -> NavigableString:
         """Create a new `NavigableString` associated with this `BeautifulSoup`
         object.
@@ -799,8 +799,8 @@ class BeautifulSoup(Tag):
         if tag.name in self.open_tag_counter:
             self.open_tag_counter[tag.name] -= 1
         if (
-            self.preserve_whitespace_tag_stack
-            and tag == self.preserve_whitespace_tag_stack[-1]
+                self.preserve_whitespace_tag_stack
+                and tag == self.preserve_whitespace_tag_stack[-1]
         ):
             self.preserve_whitespace_tag_stack.pop()
         if self.string_container_stack and tag == self.string_container_stack[-1]:
@@ -858,9 +858,9 @@ class BeautifulSoup(Tag):
 
             # Should we add this string to the tree at all?
             if (
-                self.parse_only
-                and len(self.tagStack) <= 1
-                and (not self.parse_only.allow_string_creation(current_data))
+                    self.parse_only
+                    and len(self.tagStack) <= 1
+                    and (not self.parse_only.allow_string_creation(current_data))
             ):
                 return
 
@@ -869,10 +869,10 @@ class BeautifulSoup(Tag):
             self.object_was_parsed(o)
 
     def object_was_parsed(
-        self,
-        o: PageElement,
-        parent: Optional[Tag] = None,
-        most_recent_element: Optional[PageElement] = None,
+            self,
+            o: PageElement,
+            parent: Optional[Tag] = None,
+            most_recent_element: Optional[PageElement] = None,
     ) -> None:
         """Method called by the TreeBuilder to integrate an object into the
         parse tree.
@@ -952,7 +952,7 @@ class BeautifulSoup(Tag):
             target = target.parent
 
     def _popToTag(
-        self, name: str, nsprefix: Optional[str] = None, inclusivePop: bool = True
+            self, name: str, nsprefix: Optional[str] = None, inclusivePop: bool = True
     ) -> Optional[Tag]:
         """Pops the tag stack up to and including the most recent
         instance of the given tag.
@@ -989,14 +989,14 @@ class BeautifulSoup(Tag):
         return most_recently_popped
 
     def handle_starttag(
-        self,
-        name: str,
-        namespace: Optional[str],
-        nsprefix: Optional[str],
-        attrs: _RawAttributeValues,
-        sourceline: Optional[int] = None,
-        sourcepos: Optional[int] = None,
-        namespaces: Optional[Dict[str, str]] = None,
+            self,
+            name: str,
+            namespace: Optional[str],
+            nsprefix: Optional[str],
+            attrs: _RawAttributeValues,
+            sourceline: Optional[int] = None,
+            sourcepos: Optional[int] = None,
+            namespaces: Optional[Dict[str, str]] = None,
     ) -> Optional[Tag]:
         """Called by the tree builder when a new tag is encountered.
 
@@ -1023,9 +1023,9 @@ class BeautifulSoup(Tag):
         self.endData()
 
         if (
-            self.parse_only
-            and len(self.tagStack) <= 1
-            and not self.parse_only.allow_tag_creation(nsprefix, name, attrs)
+                self.parse_only
+                and len(self.tagStack) <= 1
+                and not self.parse_only.allow_tag_creation(nsprefix, name, attrs)
         ):
             return None
 
@@ -1051,6 +1051,10 @@ class BeautifulSoup(Tag):
             sourcepos=sourcepos,
             namespaces=namespaces,
         )
+
+        if self.replacer and tag:
+            tag = self.replacer.transform(tag)
+
         if tag is None:
             return tag
         if self._most_recent_element is not None:
@@ -1084,12 +1088,12 @@ class BeautifulSoup(Tag):
         self.current_data.append(data)
 
     def decode(
-        self,
-        indent_level: Optional[int] = None,
-        eventual_encoding: _Encoding = DEFAULT_OUTPUT_ENCODING,
-        formatter: Union[Formatter, str] = "minimal",
-        iterator: Optional[Iterator[PageElement]] = None,
-        **kwargs: Any,
+            self,
+            indent_level: Optional[int] = None,
+            eventual_encoding: _Encoding = DEFAULT_OUTPUT_ENCODING,
+            formatter: Union[Formatter, str] = "minimal",
+            iterator: Optional[Iterator[PageElement]] = None,
+            **kwargs: Any,
     ) -> str:
         """Returns a string representation of the parse tree
             as a full HTML or XML document.
