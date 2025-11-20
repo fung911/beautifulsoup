@@ -12,7 +12,7 @@
         └──README.md              # This file
         └── task7.py         
     └── bs4/
-        └──test              
+        └──tests              
             └── test_xformer.py        # Test cases  
         └── SoupReplace.py             # My customize class
      

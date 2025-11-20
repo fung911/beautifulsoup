@@ -13,7 +13,7 @@
         └── task4.py         
         └── task6.py       
     └── bs4/
-        └──test              
+        └──tests              
             └── test_replacer.py       # Test cases  
         └── SoupReplace.py             # My customize class  
 ```
