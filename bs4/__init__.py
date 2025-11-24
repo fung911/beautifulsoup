@@ -493,6 +493,15 @@ class BeautifulSoup(Tag):
         self.markup = None
         self.builder.soup = None
 
+    # M4
+    def __iter__(self):
+        for item in self.descendants:
+            # filter the irrelevant element and only keep the Tag class
+            if isinstance(item, Tag):
+                yield item
+            else:
+                continue
+
     def copy_self(self) -> "BeautifulSoup":
         """Create a new BeautifulSoup object with the same TreeBuilder,
         but not associated with any markup.
